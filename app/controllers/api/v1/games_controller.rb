@@ -12,17 +12,30 @@ module Api
             @game = Game.find(params[:id])
             render json: @game
           rescue ActiveRecord::RecordNotFound => e
-            render json: {error: "ID not found"}
+            render json: { error: "ID not found" }, status: 404
           end
         end
 
         def new
         end
 
+        def edit
+        end
+
         def create
           @game = Game.new(game_params)
           @game.save
           render json: @game, status: 201
+        end
+
+        def update
+          begin
+            @game = Game.find(params[:id])
+            @game.update(game_params)
+            render json: @game, status: 200
+          rescue ActiveRecord::RecordNotFound => e
+            render json: { error: "ID not found" }
+          end
         end
 
         private

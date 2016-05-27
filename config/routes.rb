@@ -11,6 +11,8 @@ Rails.application.routes.draw do
       #
       match 'games', to: 'games#create', via: [:options]
 
+      match 'games/:id', to: 'games#update', via: [:options]
+
       resources :games, via: [:options]
     end
   end

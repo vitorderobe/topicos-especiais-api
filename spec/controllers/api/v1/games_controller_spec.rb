@@ -30,13 +30,25 @@ describe Api::V1::GamesController, :type => :controller do
   end
 
   it "makes a POST request" do
-    get :create, { home: "Steelers", away: "Patriots", home_score: "0", away_score: "0",
+    post :create, { home: "Steelers", away: "Patriots", home_score: "0", away_score: "0",
       championship: "NFL", place: "Heinz Field", date: "13/05/16", time: "21:00" }
 
     expected = FactoryGirl.attributes_for(:third_game).except(:created_at, :updated_at)  
 
     expect(response.status).to eq(201)
     expect(response.body).to eq(expected.to_json)
-  end  
+  end
+
+  it "makes a PUT request" do
+    put :update, { id: "1", home: "Corinthians", away: "Chapecoense", home_score: "0", away_score: "0",
+      championship: "Brasileirão", place: "Itaquera", date: "30/10/15", time: "22:00" }
+
+    expect(response.status).to eq(200)
+
+    get :show, { id: 1 }
+
+    expected = FactoryGirl.attributes_for(:updated_game).except(:created_at, :updated_at)  
+    expect(response.body).to eq(expected.to_json)
+  end
 
 end

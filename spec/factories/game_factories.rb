@@ -36,6 +36,18 @@ FactoryGirl.define do
     f.place        "Heinz Field"
     f.date         "13/05/16"
     f.time         "21:00"
+  end
+
+  factory :updated_game, class: Game do |f|
+    f.id           1
+    f.home         "Corinthians"
+    f.away         "Chapecoense"
+    f.home_score   "0"
+    f.away_score   "0"
+    f.championship "Brasileirão"
+    f.place        "Itaquera"
+    f.date         "30/10/15"
+    f.time         "22:00"
   end  
 
 end
