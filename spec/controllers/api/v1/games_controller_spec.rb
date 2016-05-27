@@ -51,4 +51,14 @@ describe Api::V1::GamesController, :type => :controller do
     expect(response.body).to eq(expected.to_json)
   end
 
+  it "makes a DELETE request" do
+    delete :destroy, { id: 2 }
+
+    expect(response.status).to eq(200)
+
+    get :show, { id: 2 }
+
+    expect(response.body).to eq("{\"error\":\"ID not found\"}")
+  end  
+
 end

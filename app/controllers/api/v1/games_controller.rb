@@ -38,6 +38,16 @@ module Api
           end
         end
 
+        def destroy
+          begin
+            @game = Game.find(params[:id])
+            @game.destroy
+            render json: { success: "Game removed" }, status: 200
+          rescue ActiveRecord::RecordNotFound => e
+            render json: { error: "ID not found" }, status: 404
+          end
+        end
+
         private
         
         def game_params
